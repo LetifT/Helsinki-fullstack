@@ -23,6 +23,10 @@ const App = () => {
     'The only way to go fast, is to go well.'
   ]
 
+  const anecdoteLength = anecdotes.length
+  const [voteCount, setVotes] = useState(Array(anecdoteLength).fill(0))
+  console.log(voteCount)
+
 
   const [selected, setSelected] = useState(0)
   
@@ -32,8 +36,16 @@ const App = () => {
     }
 
   const updateSelected = () => {
+    console.log(selected)
     const newSelected = getRandomInt(anecdotes.length)
     setSelected(newSelected)
+  }
+
+  const countVote = () => {
+    const copySelected = [...voteCount]
+    copySelected[selected] += 1
+    setVotes(copySelected)
+    console.log(voteCount)
   }
    
 
@@ -41,7 +53,9 @@ const App = () => {
     <div>
       <div>
       {anecdotes[selected]}
+      <p>has {voteCount[selected]} votes</p>
       </div>
+      <Button handleClick={countVote} text="vote"/>
       <Button handleClick={updateSelected} text="next anecdote"/>
     </div>
     
